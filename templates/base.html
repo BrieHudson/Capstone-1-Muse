@@ -32,7 +32,6 @@
                     </li>
                 </ul>
                 <form action="{{ url_for('search_users') }}" method="GET" class="form-inline my-2 my-lg-0">
-                    {{ form.hidden_tag() }}
                     <input class="form-control mr-sm-2" type="search" placeholder="Search users" aria-label="Search" name="query" required>
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>

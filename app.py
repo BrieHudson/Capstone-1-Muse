@@ -465,12 +465,19 @@ def view_comments(post_id):
 @app.route('/feed')
 @login_required
 def feed():
-    """Display post from the current user and followed users"""
+    """Display posts from the current user and followed users"""
 
+    # Retrieve the IDs of the followed users
     followed_user_ids = [f.followed_id for f in current_user.followed]
-    posts = Post.query.filter(Post.user_id.in_(followed_user_ids) | (Post.user_id == current_user.id)).order_by(Post.timestamp.desc()).all()
+
+    # Create a query to fetch posts from followed users and the current user
+    posts = Post.query.filter(
+        (Post.user_id.in_(followed_user_ids)) | (Post.user_id == current_user.id)
+    ).order_by(Post.timestamp.desc()).all()
+
     form = PostForm()
     return render_template('feed.html', posts=posts, form=form)
+
 
 
 
