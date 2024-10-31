@@ -17,7 +17,7 @@ load_dotenv()
 
 #Initialize Flask app and configuration
 app = Flask(__name__)
-app.app_context().push()
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SUPABASE_DB_URL', 'postgresql:///muse_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
