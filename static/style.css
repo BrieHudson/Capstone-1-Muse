@@ -1,0 +1,57 @@
+body {
+    margin: 0;  /* Removes margin from the body and html elements */
+    padding: 0; /* Removes padding from the body and html elements */
+    height: 100%; /* Ensures both html and body take up full height */
+  }
+  
+
+/* #################################################################### */
+
+/* searching */
+
+/* Style for the search input */
+#search_query {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding for comfort */
+    font-size: 16px; /* Font size */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    margin-bottom: 10px; /* Space below */
+}
+
+/* Style for the search results container */
+#search_results {
+    position: absolute; /* Position it absolutely to overlay below the input */
+    background-color: #fff; /* White background for results */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    z-index: 1000; /* Make sure it appears on top */
+    width: 100%; /* Match input width */
+    max-height: 300px; /* Limit height */
+    overflow-y: auto; /* Scroll if too many results */
+    display: none; /* Hidden by default */
+}
+
+/* Style for individual search result items */
+.list-group-item {
+    padding: 10px; /* Padding for comfort */
+    cursor: pointer; /* Indicate it's clickable */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+/* Change background color on hover */
+.list-group-item:hover {
+    background-color: #f0f0f0; /* Light gray on hover */
+}
+
+/* Style for results when no items are found */
+#search_results p {
+    padding: 10px; /* Padding for comfort */
+    margin: 0; /* No margin */
+    color: #777; /* Gray color for no results text */
+}
+
+/* Optional: Style for the overall container of the search input and results */
+.search-container {
+    position: relative; /* Allow absolute positioning of search results */
+}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center my-4">{{ user.username }}</h1> 
+
+<div class="container">
+    <div class="row justify-content-around my-4"> 
+        <div class="col text-center">
+            <p class="h5 mb-0">Followers</p> 
+            <p class="h6">{{ followers_count }}</p> 
+            <a href="{{ url_for('user_followers', user_id=user.id) }}" class="btn btn-link">View Followers</a> 
+        </div>
+        <div class="col text-center">
+            <p class="h5 mb-0">Following</p> 
+            <p class="h6">{{ following_count }}</p> 
+            <a href="{{ url_for('user_following', user_id=user.id) }}" class="btn btn-link">View Following</a> 
+        </div>
+        <div class="col text-center">
+            <p class="h5 mb-0">Likes</p> 
+            <p class="h6">{{ likes_count }}</p> 
+            <a href="{{ url_for('user_likes', user_id=user.id) }}" class="btn btn-link">View Likes</a> 
+        </div>
+    </div> 
+
+    <!-- Follow/Unfollow Button -->
+    <div class="text-center my-4">
+        {% if current_user.is_authenticated %}
+            {% if user.id != current_user.id %}
+                {% if current_user.is_following(user) %}
+                    <form action="{{ url_for('unfollow_user', user_id=user.id) }}" method="POST">
+                        <button type="submit" class="btn btn-warning">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form action="{{ url_for('follow_user', user_id=user.id) }}" method="POST">
+                        <button type="submit" class="btn btn-primary">Follow</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- User's Posts -->
+<div class="mt-4">
+    <h2>Your Posts</h2>
+    <ul class="list-unstyled">
+        {% for post in user_posts %}
+            <li>
+                <div class="card mb-2 p-2 bg-light-gray"> <!-- Card for each post -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ post.spotify_name }}</strong>
+                            {% if post.artist_name %} by {{ post.artist_name }} {% endif %}
+                        </div>
+                        <em class="ml-3">{{ post.caption }}</em> <!-- Caption aligned to the right -->
+                    </div>
+                </div>
+            </li>
+        {% else %}
+            <li>No posts yet!</li>
+        {% endfor %}
+    </ul>
+    </div>
+</div> 
+{% endblock %}
+
+
+

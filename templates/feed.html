@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-center my-4">Feed</h1> 
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {% for post in posts %}
+            <div class="card mb-4 p-3 bg-light-gray"> 
+                <div class="card-body">
+                    <h5 class="card-title text-center"><strong>{{ post.author.username }}</strong></h5>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <!-- Post info (name and artist) -->
+                                    <h5 class="card-title mb-0">{{ post.spotify_name }}</h5>
+                                    {% if post.artist_name %}
+                                        <p class="card-text text-muted mb-0">by {{ post.artist_name }}</p>
+                                    {% endif %}
+                                </div>
+                                <!-- Caption -->
+                                <p class="card-text text-right mb-0 ml-auto" style="width: 50%;"><em>{{ post.caption }}</em></p>
+                            </div>
+                            <p class="card-text">
+                                <small class="text-muted">{{ post.timestamp.strftime('%m-%d-%Y %H:%M') }}</small> <!-- Timestamp -->
+                            </p>
+
+                            <!-- Like, Comment, and Delete buttons in a row -->
+                            <div class="d-flex justify-content-between">
+                                <!-- Like/unlike button -->
+                                <div>
+                                    {% if current_user.has_liked_post(post) %}
+                                    <form action="{{ url_for('unlike_post', post_id=post.id) }}" method="POST" style="display:inline;">
+                                        {{ form.hidden_tag() }}
+                                        <button type="submit" class="btn btn-warning btn-sm">Unlike</button>
+                                    </form>
+                                    {% else %}
+                                    <form action="{{ url_for('like_post', post_id=post.id) }}" method="POST" style="display:inline;">
+                                        {{ form.hidden_tag() }}
+                                        <button type="submit" class="btn btn-primary btn-sm">Like</button>
+                                    </form>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Comment button -->
+                                <button type="button" class="btn btn-outline-secondary btn-sm comment-btn" data-post-id="{{ post.id }}">Comment</button>
+
+                                <!-- Display number of comments -->
+                                <a href="{{ url_for('view_comments', post_id=post.id) }}" class="text-muted">
+                                    {{ post.comments|length }} Comments
+                                </a>
+
+                                <!-- Delete button (only for the post author) -->
+                                {% if post.user_id == current_user.id %}
+                                <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" style="display:inline;">
+                                    {{ form.hidden_tag() }}
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                                {% endif %}
+                            </div>
+
+                            <!-- Hidden Comment Form (initially hidden) -->
+                            <div id="comment-form-{{ post.id }}" class="comment-form mt-3" style="display: none;">
+                                <form action="{{ url_for('add_comment', post_id=post.id)}}" method="POST">
+                                    {{ form.hidden_tag() }}
+                                    <textarea name="content" placeholder="Write a comment..." class="form-control mb-2" required></textarea>
+                                    <button type="submit" class="btn btn-success btn-sm">Post</button>
+                                </form>
+                            </div>
+
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+            {% endfor %}
+        </div> 
+    </div> 
+</div> 
+
+{% if not posts %}
+    <p class="text-center text-muted">Nothing to see here! Start following to see heat!</p>
+{% endif %}
+{% endblock %}
+
+
+
+
+
+

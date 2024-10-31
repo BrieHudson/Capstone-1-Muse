@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center my-4">Comments</h1> 
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {% for comment in comments %}
+            <div class="card mb-4 p-3 bg-light-gray"> <!-- Bootstrap card with margin and padding -->
+                <div class="card-body">
+                    <!-- Comment author and content -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0"><strong>{{ comment.user.username }}</strong></h5>
+                        <p class="card-text text-right mb-0 ml-auto" style="width: 50%;"><em>{{ comment.content }}</em></p>
+                    </div>
+                </div>
+            </div> 
+            {% endfor %}
+        </div> 
+    </div> 
+</div> 
+
+<!-- Back to Feed link -->
+<div class="text-center my-4">
+    <a href="{{ url_for('feed') }}" class="btn btn-primary">Back to Feed</a>
+</div>
+
+{% if not comments %}
+    <p class="text-center text-muted">No comments yet! Be the first to comment.</p>
+{% endif %}
+{% endblock %}
+

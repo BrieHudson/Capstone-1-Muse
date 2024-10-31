@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Add Post</h2>
+    
+    <form method="POST" action="{{ url_for('add_post') }}">
+        {{ form.hidden_tag() }}
+    
+        <!-- Search bar for Spotify songs/playlists -->
+        <div class="form-group">
+            <label for="search_query">Search for a song or playlist</label>
+            <input type="text" id="search_query" name="search_query" class="form-control" placeholder="Type to search..." autocomplete="off">
+            
+            <!-- Hidden field to store the selected Spotify ID -->
+            <input type="hidden" id="selected_spotify_id" name="selected_spotify_id">
+            <input type="hidden" id="spotify_name" name="spotify_name">
+            <input type="hidden" id="artist_name" name="artist_name">
+            
+            <!-- Container to display search suggestions -->
+            <div id="search_results" class="list-group" style="display: none;"></div>
+
+            <!-- Div to display the selected song or playlist-->
+            <div>
+                <div id="selected_display" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <!-- Song or Playlist Caption -->
+        <div class="form-group">
+            <label for="caption">{{ form.caption.label }}</label>
+            {{ form.caption(class="form-control", placeholder="Add a caption") }}
+        </div>
+    
+        <!-- Post submit button -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+    </form>
+{% endblock %}

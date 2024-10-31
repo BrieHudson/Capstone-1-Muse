@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center my-4">Liked Posts</h1> 
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {% for post in liked_posts %}
+            <div class="card mb-4 p-3 bg-light-gray"> 
+                <div class="card-body">
+                    <!-- Username of the post author -->
+                    <h5 class="card-title text-center"><strong>{{ post.author.username }}</strong></h5>
+                    
+                    <!-- Post information and caption -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <!-- Post info (name and artist) -->
+                            <h5 class="card-title mb-0">{{ post.spotify_name }}</h5>
+                            {% if post.artist_name %}
+                                <p class="card-text text-muted mb-0">by {{ post.artist_name }}</p>
+                            {% endif %}
+                        </div>
+                        <!-- Caption -->
+                        <p class="card-text text-right mb-0 ml-auto" style="width: 50%;"><em>{{ post.caption }}</em></p>
+                    </div>
+                    
+                </div>
+            </div> 
+            {% else %}
+            <div class="card mb-4 p-3 bg-light-gray"> <!-- Card for no liked posts message -->
+                <div class="card-body text-center">
+                    <p class="text-muted">No liked posts yet.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div> <!-- End of col-lg-8 -->
+    </div> <!-- End of row -->
+</div> <!-- End of container -->
+{% endblock %}
+

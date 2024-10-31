@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="text-center my-4">Search results for "{{ query }}"</h2> <!-- Centered title for search results -->
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {% if results %}
+                {% for user in results %}
+                <div class="card mb-4 p-3 bg-light-gray"> <!-- Bootstrap card for each user -->
+                    <div class="card-body text-center"> <!-- Center content in the card -->
+                        <h5 class="card-title mb-0">
+                            <a href="{{ url_for('user_profile', user_id=user.id) }}">{{ user.username }}</a> <!-- Link to user profile -->
+                        </h5>
+                    </div>
+                </div> <!-- End of card -->
+                {% endfor %}
+            {% else %}
+            <div class="card mb-4 p-3 bg-light-gray"> <!-- Card for no results found -->
+                <div class="card-body text-center">
+                    <p class="text-muted">No results found for "{{ query }}".</p> <!-- No results message -->
+                </div>
+            </div>
+            {% endif %}
+        </div> <!-- End of col-lg-8 -->
+    </div> <!-- End of row -->
+</div> <!-- End of container -->
+{% endblock %}
+
+
+
