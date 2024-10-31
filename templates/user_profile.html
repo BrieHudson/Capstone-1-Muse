@@ -28,10 +28,12 @@
             {% if user.id != current_user.id %}
                 {% if current_user.is_following(user) %}
                     <form action="{{ url_for('unfollow_user', user_id=user.id) }}" method="POST">
+                        {{ form.hidden_tag() }}
                         <button type="submit" class="btn btn-warning">Unfollow</button>
                     </form>
                 {% else %}
                     <form action="{{ url_for('follow_user', user_id=user.id) }}" method="POST">
+                        {{ form.hidden_tag() }}
                         <button type="submit" class="btn btn-primary">Follow</button>
                     </form>
                 {% endif %}
