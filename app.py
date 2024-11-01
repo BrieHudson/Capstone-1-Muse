@@ -17,7 +17,7 @@ load_dotenv()
 
 #Initialize Flask app and configuration
 app = Flask(__name__)
-
+# app.app_context().push()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SUPABASE_DB_URL', 'postgresql:///muse_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -76,17 +76,13 @@ def login():
         if user:
             login_user(user)
             print(f"Logged in user: {user.username}")
-            
-            if current_user.is_authenticated:
-                print(f"Is authenticated: {current_user.is_authenticated}")
-                return redirect(url_for('feed')) #redirect to user feed after login
-            else:
-                print("Login failed: User not authenticated")
-        
+            return redirect(url_for('feed'))  # Redirect to user feed after login
         else:
             form.username.errors = ['Invalid username/password.']
-            print("Login failed")
+            print("Login failed: Invalid username/password.")
+            
     return render_template('login.html', form=form)
+            
 
 @app.route('/signup', methods=['GET', 'POST'] )
 def signup():

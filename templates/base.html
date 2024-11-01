@@ -11,7 +11,7 @@
     <header>
         {% if current_user.is_authenticated %}
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2C2D61;">
-            <a class="navbar-brand d-flex align-items-center text-white">
+            <a class="navbar-brand d-flex align-items-center text-white" href="#">
                 <img src="{{ url_for('static', filename='muse_logo.jpg') }}" alt="Logo" style="width: 30px; height: 30px; margin-right: 5px;">
                 Muse
             </a>
@@ -20,7 +20,7 @@
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav mx-auto"> 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('feed') }}">Home</a>
                     </li>
@@ -37,7 +37,7 @@
                 </form>
                 <a class="btn btn-outline-danger ms-3 btn-sm" href="{{ url_for('logout') }}">Logout</a>
             </div>
-        </nav>
+        </nav>                       
         {% endif %}
     </header>
     

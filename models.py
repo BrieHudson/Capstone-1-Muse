@@ -14,6 +14,9 @@ def connect_db(app):
         db.init_app(app)
         db.create_all()
 
+"""def connect_db(app):
+    db.app = app
+    db.init_app(app)"""
 
 
 class Follower(db.Model):
@@ -211,7 +214,7 @@ class Like(db.Model):
     
 
 class Comment(db.Model):
-    __tablename__ = 'comment'
+    __tablename__ = 'comments'
 
     id = db.Column(db.Integer, 
                     primary_key=True,
